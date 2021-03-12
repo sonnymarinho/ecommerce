@@ -1,9 +1,21 @@
 import React from 'react';
 
-// import { Container } from './styles';
+import ProductsList from '../../components/products/ProductsList';
+import Header from '../../components/shared/Header';
+import PageTitle from '../../components/shared/PageTitle';
+
+import { Container, Main } from './styles';
 
 const Products: React.FC = () => {
-  return <h1>hellow</h1>;
+  return (
+    <Container>
+      <Header />
+      <Main>
+        <PageTitle>Nossos Produtos</PageTitle>
+        <ProductsList />
+      </Main>
+    </Container>
+  );
 };
 
 export default Products;
