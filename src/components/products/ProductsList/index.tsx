@@ -11,9 +11,11 @@ const ProductsList: React.FC = () => {
   return (
     <Container>
       {products.map(product => (
-        <Product key={product.id}>
+        <Product data-testid="product-item" key={product.id}>
           {product.quantity > 0 && (
-            <span className="productsAdded">{product.quantity}</span>
+            <span data-testid="product-quantity" className="productsAdded">
+              {product.quantity}
+            </span>
           )}
           <img
             src={`assets/images/products/${product.image}`}
@@ -21,7 +23,11 @@ const ProductsList: React.FC = () => {
           />
           <p>{product.name}</p>
           <span>{product.formattedPrice}</span>
-          <button type="button" onClick={() => addProduct(product)}>
+          <button
+            data-testid="add-product-button"
+            type="button"
+            onClick={() => addProduct(product)}
+          >
             <span>Adicionar</span>
             <div>
               <img src="assets/icons/cart-icon.svg" alt="cart icon" />
