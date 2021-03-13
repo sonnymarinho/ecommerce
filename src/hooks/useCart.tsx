@@ -11,6 +11,11 @@ import { Product } from '../types/Product';
 import formatCurrency from '../utils/formatCurrency';
 import { useProducts } from './useProducts';
 
+const {
+  REACT_APP_MINIMUM_PRICE_FOR_FREE_SHIPPING,
+  REACT_APP_SHIPPING_PRICE_PER_PRODUCT,
+} = process.env;
+
 interface CartContextData {
   totalItems: number;
   addProduct: (product: Product) => void;
@@ -19,6 +24,10 @@ interface CartContextData {
   closeModal: () => void;
   confirmProductRemotion: () => void;
   selectedProducts: Product[];
+  subTotal: number;
+  shippingPrice: number;
+  isFreeShipping: boolean;
+  totalAmount: number;
 }
 
 interface CartProps {
@@ -120,6 +129,29 @@ const CartProvider: React.FC<CartProps> = ({ children }) => {
     [products],
   );
 
+  const subTotal = useMemo(() => {
+    return selectedProducts.reduce((total, product) => {
+      return total + product.subTotalPrice;
+    }, 0);
+  }, [selectedProducts]);
+
+  const isFreeShipping = useMemo(() => {
+    const minimumPrice =
+      Number(REACT_APP_MINIMUM_PRICE_FOR_FREE_SHIPPING) || 250;
+
+    return subTotal > minimumPrice;
+  }, [subTotal]);
+
+  const shippingPrice = useMemo(() => {
+    const pricePerProduct = Number(REACT_APP_SHIPPING_PRICE_PER_PRODUCT) || 10;
+
+    return isFreeShipping ? 0 : totalItems * pricePerProduct;
+  }, [isFreeShipping, totalItems]);
+
+  const totalAmount = useMemo(() => {
+    return shippingPrice + subTotal;
+  }, [shippingPrice, subTotal]);
+
   return (
     <CartContext.Provider
       value={{
@@ -130,6 +162,10 @@ const CartProvider: React.FC<CartProps> = ({ children }) => {
         closeModal,
         confirmProductRemotion,
         selectedProducts,
+        subTotal,
+        shippingPrice,
+        isFreeShipping,
+        totalAmount,
       }}
     >
       {children}

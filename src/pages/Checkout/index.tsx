@@ -1,4 +1,5 @@
 import React from 'react';
+import CartResumeBox from '../../components/checkout/CartResumeBox';
 import EmptyCart from '../../components/checkout/EmptyCart';
 import SelectedProduct from '../../components/checkout/SelectedProduct';
 import Header from '../../components/shared/Header';
@@ -26,7 +27,9 @@ const Checkout: React.FC = () => {
                 <SelectedProduct key={product.id} product={product} />
               ))}
             </LeftContainer>
-            <RightContainer />
+            <RightContainer>
+              <CartResumeBox />
+            </RightContainer>
           </Content>
         ) : (
           <EmptyCart />
