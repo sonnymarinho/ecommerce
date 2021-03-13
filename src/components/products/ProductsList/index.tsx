@@ -4,15 +4,6 @@ import { Container, Product } from './styles';
 import { useProducts } from '../../../hooks/useProducts';
 import { useCart } from '../../../hooks/useCart';
 
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  score: number;
-  image: string;
-  formattedPrice: string;
-}
-
 const ProductsList: React.FC = () => {
   const { products } = useProducts();
   const { addProduct } = useCart();
@@ -21,6 +12,9 @@ const ProductsList: React.FC = () => {
     <Container>
       {products.map(product => (
         <Product key={product.id}>
+          {product.quantity > 0 && (
+            <span className="productsAdded">{product.quantity}</span>
+          )}
           <img
             src={`assets/images/products/${product.image}`}
             alt={product.name}

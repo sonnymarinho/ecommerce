@@ -11,6 +11,7 @@ export const Container = styled.div`
 `;
 
 export const Product = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -24,13 +25,28 @@ export const Product = styled.div`
   border-radius: 8px;
   padding: 1.5rem 2rem;
 
+  .productsAdded {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 8px;
+    background: rgba(253, 149, 31, 0.15);
+    color: #ed8c1d;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   > img {
     height: 200px;
   }
 
   p {
     font-size: 1.5rem;
-    color: var(--product-title);
+    color: var(--dark-gray);
     font-weight: 600;
     text-align: center;
     margin-top: 1.8rem;

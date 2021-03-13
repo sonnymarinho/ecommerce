@@ -6,31 +6,31 @@ export const Container = styled.div`
   button {
     outline: none;
     border: none;
-    border-radius: 0.5rem;
     background: var(--white);
   }
+`;
 
-  > button {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 496px;
-    height: 3rem;
-    padding: 0.5rem 1rem;
+export const ToggleButton = styled.button`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 496px;
+  height: 3rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
 
-    span {
-      margin: 0 1rem;
-      color: var(--purple);
+  span {
+    margin: 0 1rem;
+    color: var(--purple);
 
-      b {
-        margin-left: 0.5rem;
-      }
-    }
-
-    img {
+    b {
       margin-left: 0.5rem;
-      height: 0.5rem;
     }
+  }
+
+  img {
+    margin-left: 0.5rem;
+    height: 0.5rem;
   }
 `;
 

@@ -1,12 +1,17 @@
 import React, { useMemo } from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
-import { Container, CartCounter } from './styles';
+import { Link } from 'react-router-dom';
+import { Container, CartCounter, FilterContainer } from './styles';
 
 import Filter from '../Filter';
 
 import { useCart } from '../../../hooks/useCart';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  isFilterDisbled?: boolean;
+}
+
+const Header: React.FC<HeaderProps> = ({ isFilterDisbled = false }) => {
   const { totalItems } = useCart();
 
   const formattedTotal = useMemo(() => String(totalItems).padStart(2, '0'), [
@@ -14,18 +19,22 @@ const Header: React.FC = () => {
   ]);
 
   return (
-    <Container>
+    <Container className={`${isFilterDisbled ? 'lowerSize' : 'commumSize'}`}>
       <header>
         <div>
-          <img src="assets/logo.svg" alt="logo" />
-          <CartCounter>
+          <Link to="/">
+            <img src="assets/logo.svg" alt="logo" />
+          </Link>
+          <CartCounter to="/checkout">
             <FiShoppingCart size={36} />
             <span>{formattedTotal}</span>
           </CartCounter>
         </div>
-        <div>
-          <Filter />
-        </div>
+        {!isFilterDisbled && (
+          <FilterContainer>
+            <Filter />
+          </FilterContainer>
+        )}
       </header>
     </Container>
   );

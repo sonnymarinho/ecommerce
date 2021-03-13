@@ -19,7 +19,7 @@ export default createGlobalStyle`
   --gray-line: #DCDDE0;
   --text: #8B8B94;
   --title: #A8A8B3;
-  --product-title: #3d3d4d;
+  --dark-gray: #3d3d4d;
   --orange: #FD951F;
   --green: #04D361;
   --purple: #6674FF;

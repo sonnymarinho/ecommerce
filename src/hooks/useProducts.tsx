@@ -6,9 +6,10 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import jsonProducts from '../data/products.json';
-import Product from '../types/Product';
+import { Product } from '../types/Product';
 import formatCurrency from '../utils/formatCurrency';
+
+import jsonProducts from '../data/products.json';
 
 const ORDER_METHODS = {
   'asc-price': (a: Product, b: Product) => a.price - b.price,
@@ -55,6 +56,7 @@ interface ProductsContextData {
   orderBy: (option: Options) => void;
   orderedBy: Options;
   orderedTitle: { title: string; subtitle: string };
+  updateProducts: (updatedProducts: Product[]) => void;
 }
 
 interface ProductsProps {
@@ -70,6 +72,8 @@ const ProductsProvider: React.FC<ProductsProps> = ({ children }) => {
     const formatted = jsonProducts.map(product => ({
       ...product,
       formattedPrice: formatCurrency(product.price),
+      quantity: 0,
+      subTotalPrice: 0,
     })) as Product[];
 
     return formatted.sort(ORDER_METHODS['asc-popularity']);
@@ -85,11 +89,15 @@ const ProductsProvider: React.FC<ProductsProps> = ({ children }) => {
     [products],
   );
 
+  const updateProducts = useCallback((updatedProducts: Product[]) => {
+    setProducts([...updatedProducts]);
+  }, []);
+
   const orderedTitle = useMemo(() => ORDER_TITLES[orderedBy], [orderedBy]);
 
   return (
     <ProductsContext.Provider
-      value={{ products, orderBy, orderedBy, orderedTitle }}
+      value={{ products, orderBy, orderedBy, orderedTitle, updateProducts }}
     >
       {children}
     </ProductsContext.Provider>

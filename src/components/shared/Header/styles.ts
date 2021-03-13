@@ -1,10 +1,15 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
   display: flex;
   height: 232px;
   width: 100%;
   background: var(--header);
+
+  &.lowerSize {
+    height: 152px;
+  }
 
   header {
     display: flex;
@@ -15,19 +20,21 @@ export const Container = styled.div`
     width: 100%;
     max-width: 1120px;
 
-    > div {
+    > div:first-child {
       display: flex;
       width: 100%;
       justify-content: space-between;
     }
-
-    > div:last-child {
-      justify-content: flex-end;
-    }
   }
 `;
 
-export const CartCounter = styled.div`
+export const FilterContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+`;
+
+export const CartCounter = styled(Link)`
   position: relative;
 
   span {

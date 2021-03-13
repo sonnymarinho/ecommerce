@@ -6,15 +6,19 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import Product from '../types/Product';
-
-type Products = Array<Product & { total: number }>;
+import RemoveProductModal from '../components/checkout/RemoveProductModal';
+import { Product } from '../types/Product';
+import formatCurrency from '../utils/formatCurrency';
+import { useProducts } from './useProducts';
 
 interface CartContextData {
-  products: Products;
   totalItems: number;
   addProduct: (product: Product) => void;
+  subtractProduct: (product: Product) => void;
   removeProduct: (product: Product) => void;
+  closeModal: () => void;
+  confirmProductRemotion: () => void;
+  selectedProducts: Product[];
 }
 
 interface CartProps {
@@ -24,62 +28,112 @@ interface CartProps {
 const CartContext = createContext({} as CartContextData);
 
 const CartProvider: React.FC<CartProps> = ({ children }) => {
-  const [products, setProducts] = useState<Products>([] as Products);
+  const [productToRemove, setProductToRemove] = useState<Product>();
+
+  const [isModalActive, setIsModalActive] = useState(false);
+
+  const { products, updateProducts } = useProducts();
 
   const totalItems = useMemo(() => {
-    return products.reduce((total, product) => total + product.total, 0);
+    return products.reduce((total, product) => total + product.quantity, 0);
   }, [products]);
 
   const addProduct = useCallback(
     (product: Product) => {
-      const updatedProducts = products;
+      const index = products.findIndex(({ id }) => product.id === id);
 
-      const index = updatedProducts.findIndex(({ id }) => product.id === id);
-
-      const productAlreadyExists = index > 0;
+      const productAlreadyExists = index >= 0;
 
       if (productAlreadyExists) {
-        updatedProducts[index].total += 1;
+        const quantity = products[index].quantity + 1;
+        const { price } = products[index];
+
+        products[index].quantity = quantity;
+        products[index].subTotalPrice = quantity * price;
+        products[index].formattedSubTotalPrice = formatCurrency(
+          quantity * price,
+        );
       } else {
-        updatedProducts.push({
+        products.push({
           ...product,
-          total: 1,
+          quantity: 1,
+          subTotalPrice: product.price,
         });
       }
 
-      setProducts([...updatedProducts]);
+      updateProducts([...products]);
     },
-    [products],
+    [products, updateProducts],
+  );
+
+  const subtractProduct = useCallback(
+    (product: Product) => {
+      const index = products.findIndex(({ id }) => product.id === id);
+
+      const productAlreadyExists = index >= 0;
+
+      if (productAlreadyExists) {
+        let { quantity } = products[index];
+
+        if (quantity > 1) {
+          const { price } = products[index];
+          quantity -= 1;
+          products[index].quantity = quantity;
+          products[index].subTotalPrice = quantity * price;
+          products[index].formattedSubTotalPrice = formatCurrency(
+            quantity * price,
+          );
+        } else {
+          setProductToRemove(product);
+          setIsModalActive(true);
+        }
+      }
+
+      updateProducts([...products]);
+    },
+    [products, updateProducts],
   );
 
   const removeProduct = useCallback(
     (product: Product) => {
-      const updatedProducts = products;
+      const index = products.findIndex(({ id }) => product.id === id);
 
-      const index = updatedProducts.findIndex(({ id }) => product.id === id);
+      products[index].quantity = 0;
 
-      const productAlreadyExists = index > 0;
-
-      if (productAlreadyExists) {
-        const { total } = updatedProducts[index];
-        updatedProducts[index].total = total > 0 ? total - 1 : 0;
-      }
-
-      setProducts(updatedProducts);
+      updateProducts([...products]);
     },
+    [products, updateProducts],
+  );
+
+  const confirmProductRemotion = useCallback(() => {
+    if (productToRemove) removeProduct(productToRemove);
+    setProductToRemove(undefined);
+    setIsModalActive(false);
+  }, [removeProduct, productToRemove]);
+
+  const closeModal = useCallback(() => {
+    setIsModalActive(false);
+  }, []);
+
+  const selectedProducts = useMemo(
+    () => products.filter(({ quantity }) => !!quantity),
     [products],
   );
 
   return (
     <CartContext.Provider
       value={{
-        products,
         totalItems,
         addProduct,
+        subtractProduct,
         removeProduct,
+        closeModal,
+        confirmProductRemotion,
+        selectedProducts,
       }}
     >
       {children}
+      {isModalActive && <RemoveProductModal />}
     </CartContext.Provider>
   );
 };

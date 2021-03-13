@@ -1,7 +1,7 @@
 import React from 'react';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { useCallback, useState } from 'react';
-import { Container, Options } from './styles';
+import { Container, Options, ToggleButton } from './styles';
 
 import { useProducts } from '../../../hooks/useProducts';
 
@@ -17,14 +17,14 @@ const Filter: React.FC = () => {
   return (
     <OutsideClickHandler onOutsideClick={() => setIsOptionsVisible(false)}>
       <Container>
-        <button type="button" onClick={toggleOptionsVisibility}>
-          ordenar produtos por
+        <ToggleButton type="button" onClick={toggleOptionsVisibility}>
+          ordenar por
           <span>
             {orderedTitle.title}
             <b>{orderedTitle.subtitle}</b>
           </span>
           <img src="assets/icons/arrow-down-icon.svg" alt="arrow down" />
-        </button>
+        </ToggleButton>
 
         {isOptionsVisible && (
           <Options>
