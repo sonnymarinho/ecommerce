@@ -1,4 +1,5 @@
 import React from 'react';
+import EmptyCart from '../../components/checkout/EmptyCart';
 import SelectedProduct from '../../components/checkout/SelectedProduct';
 import Header from '../../components/shared/Header';
 import { useCart } from '../../hooks/useCart';
@@ -18,14 +19,18 @@ const Checkout: React.FC = () => {
     <Container>
       <Header isFilterDisbled />
       <Main>
-        <Content>
-          <LeftContainer>
-            {selectedProducts.map(product => (
-              <SelectedProduct key={product.id} product={product} />
-            ))}
-          </LeftContainer>
-          <RightContainer />
-        </Content>
+        {selectedProducts.length ? (
+          <Content>
+            <LeftContainer>
+              {selectedProducts.map(product => (
+                <SelectedProduct key={product.id} product={product} />
+              ))}
+            </LeftContainer>
+            <RightContainer />
+          </Content>
+        ) : (
+          <EmptyCart />
+        )}
       </Main>
     </Container>
   );
