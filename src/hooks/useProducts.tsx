@@ -37,7 +37,7 @@ const ORDER_TITLES = {
   },
   'desc-popularity': {
     title: 'popularidade',
-    subtitle: 'maior popularidade',
+    subtitle: 'mais popular',
   },
   'asc-alphabeticalOrder': {
     title: 'ordem alfabética',
@@ -76,7 +76,7 @@ const ProductsProvider: React.FC<ProductsProps> = ({ children }) => {
       subTotalPrice: 0,
     })) as Product[];
 
-    return formatted.sort(ORDER_METHODS['asc-popularity']);
+    return formatted.sort(ORDER_METHODS[orderedBy]);
   });
 
   const orderBy = useCallback(
