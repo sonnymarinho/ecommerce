@@ -1,6 +1,7 @@
 import React from 'react';
 import { fireEvent, getByTestId, render, waitFor } from '@testing-library/react';
 import CheckoutPage from '../../pages/Checkout';
+import RemoveProductModal from '../../components/checkout/RemoveProductModal';
 
 
 jest.mock('react-router-dom', () => {
@@ -49,6 +50,8 @@ let mockedAddProduct = jest.fn();
 let mockedSubtractProduct = jest.fn();
 let mockedProducts = products;
 let mockedTotalItems = mockedProducts.length;
+const mockedCloseModal = jest.fn();
+const mockedConfirmProductRemotion = jest.fn();
 
 jest.mock('../../hooks/useCart', () => {
     return {
@@ -57,6 +60,8 @@ jest.mock('../../hooks/useCart', () => {
       subtractProduct: mockedSubtractProduct,
       totalItems: mockedTotalItems,
       selectedProducts: mockedProducts,
+      closeModal: mockedCloseModal,
+      confirmProductRemotion: mockedConfirmProductRemotion,
     }),
   };
 });
@@ -116,4 +121,52 @@ describe('ProductsPage', () => {
 
     expect(mockedSubtractProduct).toHaveBeenCalled();
   });
-});
+
+  it('it should be able to decrease the quantity of an existent product until zero', async () => {
+    const product = {
+      formattedPrice: "R$ 71,94",
+      formattedSubTotalPrice: "R$ 143,88",
+      id: 74,
+      image: "shards-of-darkness.png",
+      name: "Shards of Darkness",
+      price: 71.94,
+      quantity: 1,
+      score: 400,
+      subTotalPrice: 143.88
+    };
+
+    mockedProducts = [product];
+
+    const { getByTestId } = render(<CheckoutPage />);
+
+    const removeButton = getByTestId('remove-button')
+
+    fireEvent.click(removeButton);
+
+    expect(mockedSubtractProduct).toHaveBeenCalledWith(product);
+  })
+
+  it('should be able to confirm the remotion of a product', async () => {
+    const { getByTestId } = render(<RemoveProductModal />);
+
+    const removeButton = getByTestId('remove-button');
+
+    await waitFor(() => {
+      fireEvent.click(removeButton);
+    })
+
+    expect(mockedConfirmProductRemotion).toBeCalled();
+  })
+
+  it('should be able to cancel the remotion of a product', async () => {
+    const { getByTestId } = render(<RemoveProductModal />);
+
+    const cancelButton = getByTestId('cancel-button');
+
+    await waitFor(() => {
+      fireEvent.click(cancelButton);
+    })
+
+    expect(mockedCloseModal).toBeCalled();
+  })
+})

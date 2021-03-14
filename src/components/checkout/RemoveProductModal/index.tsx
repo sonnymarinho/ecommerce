@@ -10,11 +10,11 @@ const RemoveProductModal: React.FC = () => {
   return (
     <Overlay>
       <OutsideClickHandler onOutsideClick={closeModal}>
-        <Container>
+        <Container data-testid="message-container">
           <h2>Deseja remover o produto</h2>
-
           <nav>
             <button
+              data-testid="cancel-button"
               onClick={() => closeModal()}
               className="cancel"
               type="button"
@@ -22,6 +22,7 @@ const RemoveProductModal: React.FC = () => {
               cancelar
             </button>
             <button
+              data-testid="remove-button"
               onClick={() => confirmProductRemotion()}
               className="remove"
               type="button"
