@@ -13,7 +13,7 @@ const SelectedProduct: React.FC<SelectedProductProps> = ({ product }) => {
   const { addProduct, subtractProduct } = useCart();
 
   return (
-    <Container>
+    <Container data-testid="selected-product">
       <img src={`assets/images/products/${product.image}`} alt={product.name} />
       <InfoContainer>
         <b>{product.name}</b>
@@ -25,10 +25,18 @@ const SelectedProduct: React.FC<SelectedProductProps> = ({ product }) => {
         <span>{product.formattedSubTotalPrice}</span>
       </InfoContainer>
       <ButtonsContainer>
-        <button type="button" onClick={() => addProduct(product)}>
+        <button
+          data-testid="add-button"
+          type="button"
+          onClick={() => addProduct(product)}
+        >
           <FiPlus />
         </button>
-        <button type="button" onClick={() => subtractProduct(product)}>
+        <button
+          data-testid="remove-button"
+          type="button"
+          onClick={() => subtractProduct(product)}
+        >
           <FiMinus />
         </button>
       </ButtonsContainer>

@@ -6,7 +6,7 @@ import { Container } from './styles';
 
 const EmptyCart: React.FC = () => {
   return (
-    <Container>
+    <Container data-testid="empty-cart-message">
       <h2>
         Ops, carrinho vazio
         <img src="assets/icons/smiling-face.svg" alt="smiling face" />
