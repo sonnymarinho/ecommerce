@@ -17,7 +17,11 @@ const Filter: React.FC = () => {
   return (
     <OutsideClickHandler onOutsideClick={() => setIsOptionsVisible(false)}>
       <Container>
-        <ToggleButton type="button" onClick={toggleOptionsVisibility}>
+        <ToggleButton
+          data-testid="filter-button"
+          type="button"
+          onClick={toggleOptionsVisibility}
+        >
           ordenar por
           <span>
             {orderedTitle.title}
@@ -32,6 +36,7 @@ const Filter: React.FC = () => {
               <span>preço</span>
               <nav>
                 <button
+                  data-testid="asc-price-button"
                   type="button"
                   className={`${
                     orderedBy === 'asc-price' ? 'selected' : '.available'
@@ -41,6 +46,7 @@ const Filter: React.FC = () => {
                   mais barato
                 </button>
                 <button
+                  data-testid="desc-price-button"
                   type="button"
                   className={`${
                     orderedBy === 'desc-price' ? 'selected' : '.available'
@@ -56,6 +62,7 @@ const Filter: React.FC = () => {
               <span>popularidade</span>
               <nav>
                 <button
+                  data-testid="asc-popularity-button"
                   type="button"
                   className={`${
                     orderedBy === 'asc-popularity' ? 'selected' : '.available'
@@ -65,6 +72,7 @@ const Filter: React.FC = () => {
                   menos popular
                 </button>
                 <button
+                  data-testid="desc-popularity-button"
                   type="button"
                   className={`${
                     orderedBy === 'desc-popularity' ? 'selected' : '.available'
@@ -80,6 +88,7 @@ const Filter: React.FC = () => {
               <span>oderm alfabética</span>
               <nav>
                 <button
+                  data-testid="asc-alphabeticalOrder-button"
                   type="button"
                   className={`${
                     orderedBy === 'asc-alphabeticalOrder'
@@ -91,6 +100,7 @@ const Filter: React.FC = () => {
                   a - z
                 </button>
                 <button
+                  data-testid="desc-alphabeticalOrder-button"
                   type="button"
                   className={`${
                     orderedBy === 'desc-alphabeticalOrder'
