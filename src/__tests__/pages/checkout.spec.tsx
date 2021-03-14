@@ -2,6 +2,7 @@ import React from 'react';
 import { fireEvent, getByTestId, render, waitFor } from '@testing-library/react';
 import CheckoutPage from '../../pages/Checkout';
 import RemoveProductModal from '../../components/checkout/RemoveProductModal';
+import OrderConfirmationModal from '../../components/checkout/OrderConfirmationModal';
 
 
 jest.mock('react-router-dom', () => {
@@ -50,8 +51,10 @@ let mockedAddProduct = jest.fn();
 let mockedSubtractProduct = jest.fn();
 let mockedProducts = products;
 let mockedTotalItems = mockedProducts.length;
-const mockedCloseModal = jest.fn();
+const mockedCloseRemoveProductModal = jest.fn();
 const mockedConfirmProductRemotion = jest.fn();
+const mockedConfirmOrderConfirmation = jest.fn();
+const mockedFireOrderConfirmationAction = jest.fn();
 
 jest.mock('../../hooks/useCart', () => {
     return {
@@ -60,8 +63,10 @@ jest.mock('../../hooks/useCart', () => {
       subtractProduct: mockedSubtractProduct,
       totalItems: mockedTotalItems,
       selectedProducts: mockedProducts,
-      closeModal: mockedCloseModal,
+      closeRemoveProductModal: mockedCloseRemoveProductModal,
       confirmProductRemotion: mockedConfirmProductRemotion,
+      confirmOrderConfirmation: mockedConfirmOrderConfirmation,
+      fireOrderConfirmationAction: mockedFireOrderConfirmationAction,
     }),
   };
 });
@@ -167,6 +172,32 @@ describe('ProductsPage', () => {
       fireEvent.click(cancelButton);
     })
 
-    expect(mockedCloseModal).toBeCalled();
+    expect(mockedCloseRemoveProductModal).toBeCalled();
   })
+
+  it('should be able to confirm an order', async () => {
+    const { getByTestId } = render(<CheckoutPage />);
+
+    const confirOrderButton = getByTestId('confirm-order-button');
+
+    await waitFor(() => {
+      fireEvent.click(confirOrderButton);
+    })
+
+    expect(mockedFireOrderConfirmationAction).toBeCalled();
+  })
+
+
+  it('should be able to close the order confirmation modal', async () => {
+    const { getByTestId } = render(<OrderConfirmationModal />);
+
+    const confirmButton = getByTestId('confirm-button');
+
+    await waitFor(() => {
+      fireEvent.click(confirmButton);
+    })
+
+    expect(mockedConfirmOrderConfirmation).toBeCalled();
+  })
+
 })

@@ -168,9 +168,9 @@ describe('useCart', () => {
       wrapper: CartProvider
     });
 
-    const spyCloseModal = jest.spyOn(result.current, 'closeModal');
+    const spyCloseModal = jest.spyOn(result.current, 'closeRemoveProductModal');
 
-    act(() => result.current.closeModal());
+    act(() => result.current.closeRemoveProductModal());
 
     expect(spyCloseModal).toBeCalled();
   })
@@ -285,5 +285,29 @@ describe('useCart', () => {
     const expectTotalAmount = onlyProductsPrice + shippingPrice;
 
     expect(result.current.totalAmount).toBe(expectTotalAmount);
+  })
+
+  it('should be able to call the confirm order function', () => {
+    const { result } = renderHook(()=> useCart(), {
+      wrapper: CartProvider
+    });
+
+    const spyConfirmOrder = jest.spyOn(result.current, 'fireOrderConfirmationAction');
+
+    act(() => result.current.fireOrderConfirmationAction());
+
+    expect(spyConfirmOrder).toBeCalled();
+  })
+
+  it('should be able to close the confirm order message modal', () => {
+    const { result } = renderHook(()=> useCart(), {
+      wrapper: CartProvider
+    });
+
+    const confirmOrderConfirmation = jest.spyOn(result.current, 'confirmOrderConfirmation');
+
+    act(() => result.current.confirmOrderConfirmation());
+
+    expect(confirmOrderConfirmation).toBeCalled();
   })
 })
