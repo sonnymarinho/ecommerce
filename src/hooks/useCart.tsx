@@ -51,9 +51,9 @@ const CartProvider: React.FC<CartProps> = ({ children }) => {
     (product: Product) => {
       const index = products.findIndex(({ id }) => product.id === id);
 
-      const productAlreadyExists = index >= 0;
+      const productExists = index >= 0;
 
-      if (productAlreadyExists) {
+      if (productExists) {
         const quantity = products[index].quantity + 1;
         const { price } = products[index];
 
@@ -62,12 +62,6 @@ const CartProvider: React.FC<CartProps> = ({ children }) => {
         products[index].formattedSubTotalPrice = formatCurrency(
           quantity * price,
         );
-      } else {
-        products.push({
-          ...product,
-          quantity: 1,
-          subTotalPrice: product.price,
-        });
       }
 
       updateProducts([...products]);
