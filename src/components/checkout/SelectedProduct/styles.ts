@@ -9,7 +9,7 @@ export const Container = styled.div`
   padding: 1rem 2rem;
 
   img {
-    height: 100px;
+    height: 6rem;
     margin-right: 0.5rem;
   }
 

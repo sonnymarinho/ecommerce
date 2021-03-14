@@ -17,10 +17,12 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 712px;
+  width: 100%;
+  max-width: 712px;
   height: 280px;
   background: var(--white);
   border-radius: 16px;
+  padding: 3rem 2rem;
 
   h2 {
     position: relative;

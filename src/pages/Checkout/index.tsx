@@ -18,7 +18,7 @@ const Checkout: React.FC = () => {
 
   return (
     <Container>
-      <Header isFilterDisbled />
+      <Header />
       <Main>
         {selectedProducts.length ? (
           <Content>
