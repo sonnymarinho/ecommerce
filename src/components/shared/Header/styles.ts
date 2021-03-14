@@ -3,20 +3,16 @@ import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
   display: flex;
-  height: 232px;
+  height: 152px;
   width: 100%;
   background: var(--header);
-
-  &.lowerSize {
-    height: 152px;
-  }
 
   header {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin: 0 auto;
-    padding: 2rem 0;
+    padding: 2rem;
     width: 100%;
     max-width: 1120px;
 
@@ -24,6 +20,15 @@ export const Container = styled.div`
       display: flex;
       width: 100%;
       justify-content: space-between;
+    }
+  }
+
+  @media (max-width: 1120px) {
+    header {
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 928px;
+      margin: 0 auto;
+      padding: 2rem 5rem;
     }
   }
 `;

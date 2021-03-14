@@ -7,11 +7,7 @@ import Filter from '../Filter';
 
 import { useCart } from '../../../hooks/useCart';
 
-interface HeaderProps {
-  isFilterDisbled?: boolean;
-}
-
-const Header: React.FC<HeaderProps> = ({ isFilterDisbled = false }) => {
+const Header: React.FC = () => {
   const { totalItems } = useCart();
 
   const formattedTotal = useMemo(() => String(totalItems).padStart(2, '0'), [
@@ -19,7 +15,7 @@ const Header: React.FC<HeaderProps> = ({ isFilterDisbled = false }) => {
   ]);
 
   return (
-    <Container className={`${isFilterDisbled ? 'lowerSize' : 'commumSize'}`}>
+    <Container>
       <header>
         <div>
           <Link to="/">
@@ -30,11 +26,6 @@ const Header: React.FC<HeaderProps> = ({ isFilterDisbled = false }) => {
             <span>{formattedTotal}</span>
           </CartCounter>
         </div>
-        {!isFilterDisbled && (
-          <FilterContainer>
-            <Filter />
-          </FilterContainer>
-        )}
       </header>
     </Container>
   );

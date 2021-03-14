@@ -21,18 +21,22 @@ const ProductsList: React.FC = () => {
             src={`assets/images/products/${product.image}`}
             alt={product.name}
           />
-          <p>{product.name}</p>
-          <span>{product.formattedPrice}</span>
-          <button
-            data-testid="add-product-button"
-            type="button"
-            onClick={() => addProduct(product)}
-          >
-            <span>Adicionar</span>
-            <div>
-              <img src="assets/icons/cart-icon.svg" alt="cart icon" />
+          <div>
+            <div className="info">
+              <p>{product.name}</p>
+              <span>{product.formattedPrice}</span>
             </div>
-          </button>
+            <button
+              data-testid="add-product-button"
+              type="button"
+              onClick={() => addProduct(product)}
+            >
+              <span>Adicionar</span>
+              <div>
+                <img src="assets/icons/cart-icon.svg" alt="cart icon" />
+              </div>
+            </button>
+          </div>
         </Product>
       ))}
     </Container>
