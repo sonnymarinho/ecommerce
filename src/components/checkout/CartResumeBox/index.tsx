@@ -5,7 +5,13 @@ import formatCurrency from '../../../utils/formatCurrency';
 import { Container } from './styles';
 
 const CartResumeBox: React.FC = () => {
-  const { subTotal, isFreeShipping, shippingPrice, totalAmount } = useCart();
+  const {
+    subTotal,
+    isFreeShipping,
+    shippingPrice,
+    totalAmount,
+    fireOrderConfirmationAction,
+  } = useCart();
 
   const formatted = useMemo(() => {
     return {
@@ -40,7 +46,13 @@ const CartResumeBox: React.FC = () => {
         </div>
       </section>
 
-      <button type="button">Finalizar compra</button>
+      <button
+        data-testid="confirm-order-button"
+        onClick={() => fireOrderConfirmationAction()}
+        type="button"
+      >
+        Finalizar compra
+      </button>
     </Container>
   );
 };

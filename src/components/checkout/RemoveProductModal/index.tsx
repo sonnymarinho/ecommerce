@@ -5,17 +5,17 @@ import { useCart } from '../../../hooks/useCart';
 import { Overlay, Container } from './styles';
 
 const RemoveProductModal: React.FC = () => {
-  const { closeModal, confirmProductRemotion } = useCart();
+  const { closeRemoveProductModal, confirmProductRemotion } = useCart();
 
   return (
     <Overlay>
-      <OutsideClickHandler onOutsideClick={closeModal}>
+      <OutsideClickHandler onOutsideClick={closeRemoveProductModal}>
         <Container data-testid="message-container">
           <h2>Deseja remover o produto</h2>
           <nav>
             <button
               data-testid="cancel-button"
-              onClick={() => closeModal()}
+              onClick={() => closeRemoveProductModal()}
               className="cancel"
               type="button"
             >

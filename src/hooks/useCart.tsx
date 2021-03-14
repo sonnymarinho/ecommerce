@@ -6,6 +6,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
+import OrderConfirmationModal from '../components/checkout/OrderConfirmationModal';
 import RemoveProductModal from '../components/checkout/RemoveProductModal';
 import { Product } from '../types/Product';
 import formatCurrency from '../utils/formatCurrency';
@@ -21,8 +22,10 @@ interface CartContextData {
   addProduct: (product: Product) => void;
   subtractProduct: (product: Product) => void;
   removeProduct: (product: Product) => void;
-  closeModal: () => void;
+  closeRemoveProductModal: () => void;
   confirmProductRemotion: () => void;
+  confirmOrderConfirmation: () => void;
+  fireOrderConfirmationAction: () => void;
   selectedProducts: Product[];
   subTotal: number;
   shippingPrice: number;
@@ -39,7 +42,14 @@ const CartContext = createContext({} as CartContextData);
 const CartProvider: React.FC<CartProps> = ({ children }) => {
   const [productToRemove, setProductToRemove] = useState<Product>();
 
-  const [isModalActive, setIsModalActive] = useState(false);
+  const [isRemoveProductModalActive, setIsRemoveProductModalActive] = useState(
+    false,
+  );
+
+  const [
+    isOrderConfirmationModalActive,
+    setIsOrderConfirmationModalActive,
+  ] = useState(false);
 
   const { products, updateProducts } = useProducts();
 
@@ -88,7 +98,7 @@ const CartProvider: React.FC<CartProps> = ({ children }) => {
           );
         } else {
           setProductToRemove(product);
-          setIsModalActive(true);
+          setIsRemoveProductModalActive(true);
         }
       }
 
@@ -111,11 +121,26 @@ const CartProvider: React.FC<CartProps> = ({ children }) => {
   const confirmProductRemotion = useCallback(() => {
     if (productToRemove) removeProduct(productToRemove);
     setProductToRemove(undefined);
-    setIsModalActive(false);
+    setIsRemoveProductModalActive(false);
   }, [removeProduct, productToRemove]);
 
-  const closeModal = useCallback(() => {
-    setIsModalActive(false);
+  const closeRemoveProductModal = useCallback(() => {
+    setIsRemoveProductModalActive(false);
+  }, []);
+
+  const confirmOrderConfirmation = useCallback(() => {
+    const emptyCartProducts = products.map(product => ({
+      ...product,
+      quantity: 0,
+      subTotalPrice: 0,
+    }));
+
+    updateProducts([...emptyCartProducts]);
+    setIsOrderConfirmationModalActive(false);
+  }, [products, updateProducts]);
+
+  const fireOrderConfirmationAction = useCallback(() => {
+    setIsOrderConfirmationModalActive(true);
   }, []);
 
   const selectedProducts = useMemo(
@@ -153,8 +178,10 @@ const CartProvider: React.FC<CartProps> = ({ children }) => {
         addProduct,
         subtractProduct,
         removeProduct,
-        closeModal,
+        closeRemoveProductModal,
         confirmProductRemotion,
+        confirmOrderConfirmation,
+        fireOrderConfirmationAction,
         selectedProducts,
         subTotal,
         shippingPrice,
@@ -163,7 +190,8 @@ const CartProvider: React.FC<CartProps> = ({ children }) => {
       }}
     >
       {children}
-      {isModalActive && <RemoveProductModal />}
+      {isRemoveProductModalActive && <RemoveProductModal />}
+      {isOrderConfirmationModalActive && <OrderConfirmationModal />}
     </CartContext.Provider>
   );
 };
