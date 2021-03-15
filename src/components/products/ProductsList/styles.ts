@@ -17,10 +17,14 @@ export const Container = styled.div`
     max-width: 928px;
     padding: 0 5rem;
   }
+
+  @media (max-width: 525px) {
+    padding: 0 calc(1.6 * 2rem);
+  }
 `;
 
 const ResponsiveProduct = css`
-  @media (max-width: 1120px) and (min-width: 620px) {
+  @media (max-width: 1120px) {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -79,7 +83,7 @@ const ResponsiveProduct = css`
     }
   }
 
-  @media (max-width: 855px) and (min-width: 620px) {
+  @media (max-width: 855px) {
     .info {
       width: 80%;
       p {
@@ -92,50 +96,103 @@ const ResponsiveProduct = css`
     }
   }
 
-  @media (max-width: 720) and (min-width: 620px) {
-    > div {
-      > div {
-        width: 80%;
-        > div {
-          p {
-            font-size: 1.25rem;
-          }
+  @media (max-width: 720px) {
+    .info {
+      width: 80%;
+      p {
+        font-size: 1.25rem;
+      }
 
-          span {
-            font-size: 1.3rem;
-          }
-        }
+      span {
+        font-size: 1.3rem;
       }
     }
   }
 
-  @media (max-width: 620px) {
-    padding: 3rem 4rem;
-    justify-content: space-between;
+  @media (max-width: 525px) {
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    height: fit-content;
+    padding: 10%;
 
-    > img {
-      width: 200px;
-      align-self: center;
-    }
-
-    .info {
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-
-      > p {
-        font-size: 1.4rem;
-      }
-
-      span {
-        font-size: 1.4rem;
-        font-weight: 600;
-      }
+    img {
+      width: 80%;
+      height: 80%;
+      margin: 0;
     }
 
     .productsAdded {
-      width: 3rem;
-      height: 3rem;
+      border-radius: 30%;
+      right: 10%;
+      width: 10%;
+      height: 10%;
+      font-size: 60%;
+      font-weight: 500;
+    }
+
+    .info {
+      width: 100%;
+      margin-top: 5% !important;
+      align-items: center !important;
+
+      p {
+        font-size: 125% !important;
+      }
+
+      span {
+        font-size: 100% !important;
+        margin: 2%;
+      }
+    }
+
+    > div button {
+      height: 50% !important;
+      font-size: 50%;
+      height: 48px !important;
+      margin-top: 10%;
+
+      span {
+        font-size: 1rem !important;
+      }
+
+      div img {
+        width: 40%;
+      }
+    }
+  }
+
+  @media (max-width: 425px) {
+    > div button {
+      height: 40px !important;
+
+      * {
+        font-size: 150%;
+      }
+
+      div img {
+        width: 40%;
+      }
+    }
+  }
+
+  @media (max-width: 375px) {
+    .info {
+      p {
+        text-align: center !important;
+      }
+    }
+
+    > div button {
+      height: 32px !important;
+
+      * {
+        font-size: 150%;
+      }
+
+      div img {
+        width: 40%;
+      }
     }
   }
 `;

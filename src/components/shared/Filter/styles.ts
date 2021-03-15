@@ -27,6 +27,30 @@ export const Overlay = styled.div`
       }
     }
   }
+
+  @media (max-width: 525px) {
+    .toggle-button {
+      position: relative;
+      padding: 1% 2%;
+      height: 50% !important;
+      margin-top: 10%;
+      font-size: 90%;
+
+      span {
+        font-size: 100%;
+      }
+
+      span {
+        margin: 0;
+      }
+
+      img {
+        position: absolute;
+        top: 15%;
+        right: 5%;
+      }
+    }
+  }
 `;
 
 const ResponsiveOptions = css`
@@ -43,6 +67,32 @@ const ResponsiveOptions = css`
 
       nav {
         margin: 0;
+      }
+
+      &:nth-child(n + 1) {
+        margin-top: 2rem;
+      }
+    }
+  }
+
+  @media (max-width: 525px) {
+    padding: 1% 10%;
+
+    li {
+      grid-template-columns: 1fr;
+      grid-template-rows: 10%;
+      margin-top: 10% !important;
+
+      span {
+        font-size: 95%;
+      }
+
+      nav {
+        margin: 0;
+
+        button {
+          font-size: 90%;
+        }
       }
 
       &:nth-child(n + 1) {

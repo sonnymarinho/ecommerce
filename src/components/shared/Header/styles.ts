@@ -25,10 +25,69 @@ export const Container = styled.div`
 
   @media (max-width: 1120px) {
     header {
-      grid-template-columns: repeat(2, 1fr);
       max-width: 928px;
       margin: 0 auto;
       padding: 2rem 5rem;
+    }
+  }
+
+  @media (max-width: 525px) {
+    height: 9rem;
+
+    header {
+      padding: 2rem 3rem;
+    }
+
+    a:first-child {
+      width: 60%;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    a:nth-child(2) {
+      width: 5%;
+
+      svg {
+        width: 170%;
+      }
+
+      span {
+        top: -10%;
+        right: -120%;
+        font-size: 0.6rem;
+      }
+    }
+  }
+
+  @media (max-width: 375px) {
+    height: 7rem;
+
+    header {
+      padding: 2rem 3rem;
+    }
+
+    a:first-child {
+      width: 70%;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    a:nth-child(2) {
+      width: 1.2rem;
+
+      svg {
+        width: 150%;
+      }
+
+      span {
+        top: -0%;
+        right: -100%;
+        font-size: 0.5rem;
+      }
     }
   }
 `;

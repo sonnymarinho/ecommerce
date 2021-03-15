@@ -36,4 +36,15 @@ export const TopContainer = styled.section`
       margin-bottom: 3rem;
     }
   }
+
+  @media (max-width: 525px) {
+    padding: 0;
+    margin: 2rem 3rem;
+
+    h1 {
+      font-size: 100%;
+      line-height: 100%;
+      margin-bottom: 0px;
+    }
+  }
 `;
