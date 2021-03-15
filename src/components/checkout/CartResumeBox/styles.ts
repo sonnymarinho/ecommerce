@@ -60,4 +60,41 @@ export const Container = styled.div`
     font-weight: 600;
     border-radius: 0 0 16px 16px;
   }
+
+  @media (max-width: 425px) {
+    section {
+      padding: 11%;
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 100% !important;
+    }
+
+    b,
+    span {
+      font-size: 80% !important;
+    }
+
+    button {
+      height: 56px;
+      font-size: 85%;
+    }
+  }
+
+  @media (max-width: 320px) {
+    div.total {
+      margin: 10% !important;
+    }
+
+    hr {
+      margin: 10% 0 !important ;
+    }
+
+    section {
+      div {
+        margin: 0;
+      }
+    }
+  }
 `;

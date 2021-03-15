@@ -47,4 +47,40 @@ export const Container = styled.div`
       font-size: 1rem;
     }
   }
+
+  @media (max-width: 425px) {
+    padding: 3rem 4rem;
+
+    h2 {
+      font-size: 100%;
+    }
+
+    img {
+      width: 12%;
+      height: 12%;
+    }
+
+    p,
+    a {
+      font-size: 75%;
+    }
+  }
+
+  @media (max-width: 425px) {
+    h2 {
+      font-size: 80%;
+
+      img {
+        display: none;
+      }
+    }
+
+    p,
+    a {
+      font-size: 60%;
+    }
+    a {
+      text-align: center !important;
+    }
+  }
 `;

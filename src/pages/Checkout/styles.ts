@@ -27,6 +27,10 @@ export const Content = styled.div`
       margin-top: 2rem;
     }
   }
+
+  @media (max-width: 768px) {
+    padding: 6%;
+  }
 `;
 
 export const LeftContainer = styled.section``;

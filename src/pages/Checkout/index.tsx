@@ -21,7 +21,7 @@ const Checkout: React.FC = () => {
       <Header />
       <Main>
         {selectedProducts.length ? (
-          <Content>
+          <Content className="content-container">
             <LeftContainer>
               {selectedProducts.map(product => (
                 <SelectedProduct key={product.id} product={product} />

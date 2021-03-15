@@ -16,6 +16,15 @@ export const Container = styled.div`
   &:nth-child(n + 2) {
     margin-top: 1rem;
   }
+
+  @media (max-width: 600px) {
+    padding: 2%;
+
+    img {
+      height: 75%;
+      margin: auto 0;
+    }
+  }
 `;
 
 export const InfoContainer = styled.section`
@@ -42,6 +51,22 @@ export const InfoContainer = styled.section`
     font-weight: 600;
     margin-top: 0.5rem;
     color: var(--purple);
+  }
+
+  @media (max-width: 600px) {
+    b,
+    p,
+    span {
+      font-size: 85%;
+    }
+  }
+
+  @media (max-width: 320px) {
+    b,
+    p,
+    span {
+      font-size: 60%;
+    }
   }
 `;
 
