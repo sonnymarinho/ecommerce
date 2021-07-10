@@ -1,6 +1,6 @@
 <h1 align="center">
 	<img alt="Logo" src="public/assets/favicon.ico" width="150px" />
-  Games Ecommerce
+  The Games Ecommerce Repository
 </h1>
 
 
