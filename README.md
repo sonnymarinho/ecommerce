@@ -34,8 +34,8 @@
 
 ## 👨🏻‍💻 About the project
 
-<p>This project is a simulation of a game ecommerce. Among its characteristics, it is possible to sort the products on the products page, by price, popularity, and alphabetical order. It is also possible to access the cart and check and change the items, as well as checkout as well.</p>
-<p>Is also possible acess online <a href="https://sm-web-ecommerce.vercel.app/">here</a></p>
+<p>This project is a simulation of a game ecommerce. Among its characteristics, it is possible to sort the products on the products page, by price, popularity, and alphabetical order. Total products over 250 is shipping free! It is also possible to access the cart, check and change the items, and checkout as well.</p>
+<p>Is also possible acess online <a href="https://ecommerce.sonnymarinho.dev/">here</a></p>
 
 
 ## 💻 Getting started
